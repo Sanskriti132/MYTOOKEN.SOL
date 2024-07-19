@@ -1,27 +1,24 @@
-# SIMTOKEN
+# MYTOKEN
 
-SimpleToken is a Minting and Burning Token Contract.This contract shows how to use the Solidity programming language to create a simple ERC20 token with minting and burning features.
+MyToken is a Minting and Burning Token Contract.This contract shows how to use the Solidity programming language to create a simple ERC20 token with minting and burning features.
 
 ## DESCRIPTION
 
-A smart contract called SimpleToken was created on the Ethereum network using Solidity. It provides the bare minimum of features for burning and minting tokens. This contract offers a clear overview of the fundamental tasks associated with token management in a decentralized setting,
-Tokens can be burned by any user to lower their balance and the overall supply, and the contract permits the owner to mint additional tokens, increasing the total supply. It can be used as a basic example for comprehending blockchain-based token lifecycle management and as a building block for more intricate token systems.
+The contract MyToken inherits from the ERC20 contract, which is a standard implementation of ERC20 tokens provided by OpenZeppelin. It introduces a new token named "MyToken" with symbol "MTK".
+Upon deployment, the contract initializes by minting 1,000,000 tokens and assigning them to the deployer's address. The deployer is also designated as the owner of the contract. The contract 
+includes functions to mint (mint) new tokens, restricted to only the owner of the contract, and to burn (burn) tokens, which any token holder can initiate to reduce their token balance. These 
+functionalities leverage the inherent security and interoperability of ERC20 tokens, making it suitable for various tokenization applications on the Ethereum blockchain.
 
 ## GETTING STARTED
 
-An ERC20 token contract called SimpleToken is simple. It has functions to control the token's supply and balance in addition to public variables for the token's name and symbol. Token balances are tracked via a mapping, which allows users to burn or mint new tokens to adjust the overall supply and balances for each address.
-This contract is perfect for learning or as a foundation for developing more complex token solutions. It illustrates how to manage a token's lifetime in a blockchain system in an efficient and straightforward manner.
+To run this program, you can use Remix, an online Solidity IDE. To get started, go to the Remix website at https://remix.ethereum.org/.
 
 ### INSTALLING
 
-Open your web browser and go to the Remix IDE by clicking on the link.
-Make a New File:
-Press the "File Explorer" symbol.
-The "+" button can be used to start a new file.
-Give SimpleToken.sol file name.
-Copy the code, then paste it.
-Copy the contract code for SimpleToken that is given below.
-Paste it inside Remix.environment's SimpleToken.sol file.
+1] Open Remix IDE.
+2] Create a new file and paste the MyToken.sol contract code.
+3] Compile the contract.
+4] Interact with the deployed contract through the Remix interface.
 
 ### EXECUTING PROGRAM
 
@@ -30,31 +27,25 @@ Paste it inside Remix.environment's SimpleToken.sol file.
 
     import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
-    contract SimpleToken is ERC20 {
+    contract MyToken is ERC20 {
     address public owner;
 
-    constructor() ERC20("SimpleToken", "SIM") {
+    constructor() ERC20("MyToken", "MTK") {
         _mint(msg.sender, 1000000 * 10 ** decimals());
-        //Mints 1,000,000 tokens (adjusted for decimals) and assigns them to the deployer's address.
         owner = msg.sender;
-    } //Sets the owner variable to the address that deployed the contract.
-
-    // Modifier to check if the caller is the owner
-    modifier onlyOwner() {
-        require(msg.sender == owner, "Only the owner can perform this action");
-        _;//Requires that the caller is the owner, otherwise it reverts with an error message.
     }
 
-    // Function to mint new tokens, only accessible by the owner
-    function mint(address to, uint256 amount) public onlyOwner {
+    function mint(address to, uint256 amount) public {
+        require(msg.sender == owner, "Only the owner can mint");
         _mint(to, amount);
     }
 
-    // Function for a user to burn their tokens
+
+
     function burn(uint256 amount) public {
         _burn(msg.sender, amount);
     }
-    }   
+    }
 
 ## HELP
 Compiler Mistakes: Solidity version 0.8.18 or higher is installed on  system.
