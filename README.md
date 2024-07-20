@@ -21,7 +21,6 @@ To run this program, you can use Remix, an online Solidity IDE. To get started, 
 4] Interact with the deployed contract through the Remix interface.
 
 ### EXECUTING PROGRAM
-
     // SPDX-License-Identifier: MIT
     pragma solidity ^0.8.0;
 
@@ -40,10 +39,13 @@ To run this program, you can use Remix, an online Solidity IDE. To get started, 
         _mint(to, amount);
     }
 
-
-
     function burn(uint256 amount) public {
         _burn(msg.sender, amount);
+    }
+
+    function transfer(address recipient, uint256 amount) public override returns (bool) {
+        _transfer(_msgSender(), recipient, amount);
+        return true;
     }
     }
 
